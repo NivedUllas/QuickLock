@@ -428,3 +428,44 @@ body {
     width: 100%;
     background-color: var(--very-strong);
 }
+
+.password-display button {
+    flex-shrink: 0; /* Add this line */
+    background-color: transparent;
+    border: none;
+    padding: 0 15px;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 480px) {
+    .password-display button {
+        padding: 0 12px; /* Reduce horizontal padding */
+    }
+    
+    .password-display input {
+        font-size: 16px; /* Smaller font for mobile */
+        padding: 12px; /* Adjust padding */
+    }
+    
+    .password-display button i {
+        font-size: 16px; /* Smaller icons */
+    }
+}
+
+.password-display input {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    font-size: 18px;
+    background-color: transparent;
+    color: var(--text);
+    outline: none;
+    white-space: nowrap; /* Add these lines */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
