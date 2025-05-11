@@ -2,37 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>QuickLock - Password Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Password Generator</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="background-gradient"></div>
     <div class="particles"></div>
-    <button id="darkModeToggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+    <button id="darkModeToggle"><i class="fas fa-moon"></i></button>
 
     <div class="container">
         <div class="header">
-            <h1>QuickLock 🔒</h1>
-            <p>Generate & Analyze Secure Passwords</p>
+            <h1>Password Generator</h1>
+            <p>Create strong, secure passwords to keep your accounts safe</p>
         </div>
 
         <div class="password-display">
-            <input type="text" id="generatedPassword" readonly aria-label="Generated password">
-            <button class="copy-btn" aria-label="Copy password">
+            <input type="text" id="generatedPassword" readonly>
+            <button class="copy-btn" onclick="copyToClipboard()">
                 <i class="far fa-copy"></i>
             </button>
-            <button class="refresh-btn" aria-label="Generate new password">
+            <button class="refresh-btn" onclick="generatePassword()">
                 <i class="fas fa-sync-alt"></i>
             </button>
         </div>
 
         <div class="options-section">
             <div class="option-row">
-                <label>Password Length: <span id="lengthValue">12</span></label>
+                <label>Password Length</label>
                 <div class="length-control">
-                    <input type="range" id="lengthSlider" min="8" max="64" value="12">
+                    <span id="lengthValue">12</span>
+                    <input type="range" id="lengthSlider" min="8" max="32" value="12" oninput="updateLength()">
                 </div>
             </div>
 
@@ -40,7 +41,7 @@
                 <label>
                     <input type="checkbox" id="uppercase" checked>
                     <span class="checkmark"></span>
-                    Uppercase (A-Z)
+                    Uppercase Letters (A-Z)
                 </label>
                 <label>
                     <input type="checkbox" id="numbers" checked>
@@ -50,17 +51,12 @@
                 <label>
                     <input type="checkbox" id="symbols" checked>
                     <span class="checkmark"></span>
-                    Symbols (!@#$%^&*)
-                </label>
-                <label>
-                    <input type="checkbox" id="avoidAmbiguous">
-                    <span class="checkmark"></span>
-                    Avoid Ambiguous (1lIO0)
+                    Symbols (!@#$%)
                 </label>
             </div>
         </div>
 
-        <button class="generate-btn">Generate Secure Password</button>
+        <button class="generate-btn" onclick="generatePassword()">Generate Password</button>
 
         <div class="strength-meter">
             <div class="strength-labels">
@@ -72,22 +68,17 @@
             <div class="meter-bar">
                 <div id="strengthIndicator" class="strength-level"></div>
             </div>
-            <p id="strengthMessage" class="strength-feedback"></p>
+            <p id="strengthMessage"></p>
         </div>
 
         <div class="analyzer-section">
-            <h3><i class="fas fa-shield-alt"></i> Password Analyzer</h3>
+            <h3>Password Strength Analyzer</h3>
             <div class="input-group">
-                <input type="password" id="passwordInput" placeholder="Test a password..." aria-label="Password input">
-                <button class="eye-btn" aria-label="Toggle visibility">
+                <input type="password" id="passwordInput" placeholder="Test a password...">
+                <button class="eye-btn" onclick="togglePassword()">
                     <i class="far fa-eye" id="eyeIcon"></i>
                 </button>
             </div>
-        </div>
-
-        <div class="password-history hidden">
-            <h3>Recent Passwords</h3>
-            <ul id="historyList"></ul>
         </div>
     </div>
 
