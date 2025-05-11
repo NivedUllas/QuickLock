@@ -172,7 +172,7 @@ function copyToClipboard() {
     // Show notification
     const notification = document.createElement('div');
     notification.textContent = 'Password copied!';
-    notification.style.cssText = `
+    notification.style.cssText = 
         position: fixed;
         bottom: 20px;
         left: 50%;
@@ -184,7 +184,7 @@ function copyToClipboard() {
         font-size: 14px;
         z-index: 1000;
         animation: fadeIn 0.3s ease;
-    `;
+    ;
     document.body.appendChild(notification);
     
     setTimeout(() => {
@@ -210,12 +210,12 @@ function createParticles() {
         const duration = Math.random() * 20 + 10;
         const delay = Math.random() * 10;
         
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        particle.style.left = `${posX}px`;
-        particle.style.top = `${window.innerHeight + size}px`;
-        particle.style.animationDuration = `${duration}s`;
-        particle.style.animationDelay = `${delay}s`;
+        particle.style.width = ${size}px;
+        particle.style.height = ${size}px;
+        particle.style.left = ${posX}px;
+        particle.style.top = ${window.innerHeight + size}px;
+        particle.style.animationDuration = ${duration}s;
+        particle.style.animationDelay = ${delay}s;
         
         particlesContainer.appendChild(particle);
     }
@@ -234,7 +234,7 @@ window.addEventListener('resize', () => {
 
 // Add CSS animations
 const style = document.createElement('style');
-style.textContent = `
+style.textContent = 
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(10px) translateX(-50%); }
         to { opacity: 1; transform: translateY(0) translateX(-50%); }
@@ -243,5 +243,5 @@ style.textContent = `
         from { opacity: 1; transform: translateY(0) translateX(-50%); }
         to { opacity: 0; transform: translateY(-10px) translateX(-50%); }
     }
-`;
+;
 document.head.appendChild(style);
