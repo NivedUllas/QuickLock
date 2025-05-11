@@ -245,3 +245,12 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// Handle window resize
+let resizeTimer;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+        generatedPassword.style.width = 'calc(100% - 88px)'; // Adjust based on button sizes
+    }, 250);
+});

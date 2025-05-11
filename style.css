@@ -469,3 +469,66 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.password-display {
+    display: flex;
+    margin-bottom: 25px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    /* Add these lines */
+    min-height: 50px;
+    align-items: center;
+}
+
+.password-display input {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    font-size: 18px;
+    background-color: transparent;
+    color: var(--text);
+    outline: none;
+    /* Add these lines */
+    min-width: 50%; /* Ensure input doesn't push buttons out */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.password-display button {
+    background-color: transparent;
+    border: none;
+    padding: 0 15px;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Add these lines */
+    flex-shrink: 0;
+    min-width: 44px; /* Minimum touch target size */
+    height: 100%;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 480px) {
+    .password-display {
+        min-height: 44px;
+    }
+    
+    .password-display input {
+        font-size: 16px;
+        padding: 12px;
+    }
+    
+    .password-display button {
+        padding: 0 12px;
+    }
+    
+    .password-display button i {
+        font-size: 16px;
+    }
+}
