@@ -9,6 +9,16 @@ const strengthIndicator = document.getElementById('strengthIndicator');
 const strengthMessage = document.getElementById('strengthMessage');
 const eyeIcon = document.getElementById('eyeIcon');
 
+// Password Generation Settings
+const wordList = [
+    'apple', 'banana', 'carrot', 'dog', 'elephant', 'fish', 'green', 'house',
+    'ice', 'jungle', 'king', 'lemon', 'mountain', 'nest', 'orange', 'purple',
+    'queen', 'river', 'snake', 'tree', 'umbrella', 'violet', 'water', 'xylophone',
+    'yellow', 'zebra', 'air', 'book', 'cat', 'door', 'earth', 'fire', 'grass', 'hat',
+    'island', 'jacket', 'kite', 'lake', 'mouse', 'note', 'ocean', 'piano', 'quilt',
+    'rose', 'sun', 'train', 'unicorn', 'volcano', 'window', 'xenon', 'yacht', 'zeppelin'
+];
+
 // Initialize dark mode
 if (localStorage.getItem('darkMode') === 'enabled') {
     enableDarkMode();
@@ -99,8 +109,8 @@ function analyzePasswordStrength(password) {
     }
 }
 
-// Password generator
-function generatePassword() {
+// Password generation functions
+function generateCharacterPassword() {
     const length = parseInt(lengthSlider.value);
     const useUppercase = document.getElementById('uppercase').checked;
     const useNumbers = document.getElementById('numbers').checked;
@@ -118,7 +128,6 @@ function generatePassword() {
     if (useNumbers) chars += charSets.numbers;
     if (useSymbols) chars += charSets.symbols;
     
-    // Ensure at least one character from each selected set
     let password = '';
     const selectedSets = [];
     
@@ -126,23 +135,48 @@ function generatePassword() {
     if (useNumbers) selectedSets.push(charSets.numbers);
     if (useSymbols) selectedSets.push(charSets.symbols);
     
-    // Add one character from each required set
     selectedSets.forEach(set => {
         password += set.charAt(Math.floor(Math.random() * set.length));
     });
     
-    // Fill the rest with random characters
     for (let i = password.length; i < length; i++) {
         password += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     
-    // Shuffle the password to mix the required characters
     password = password.split('').sort(() => 0.5 - Math.random()).join('');
-    
-    generatedPassword.value = password;
+    return password;
+}
+
+function generateWordPassword() {
+    const wordCount = parseInt(document.getElementById('wordCount').value);
+    const useUppercase = document.getElementById('uppercase').checked;
+    const useNumbers = document.getElementById('numbers').checked;
+    const useSymbols = document.getElementById('symbols').checked;
+
+    let words = [];
+    for (let i = 0; i < wordCount; i++) {
+        const word = wordList[Math.floor(Math.random() * wordList.length)];
+        words.push(useUppercase ? word.charAt(0).toUpperCase() + word.slice(1) : word);
+    }
+
+    let password = words.join('');
+
+    if (useNumbers) password += Math.floor(Math.random() * 10);
+    if (useSymbols) {
+        const symbols = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+        password += symbols[Math.floor(Math.random() * symbols.length)];
+    }
+
+    return password;
+}
+
+// Main password generation handler
+function generatePassword() {
+    const isWordMode = document.getElementById('randomWords').checked;
+    generatedPassword.value = isWordMode ? generateWordPassword() : generateCharacterPassword();
     
     // Analyze the generated password
-    const { strengthLevel, feedback } = analyzePasswordStrength(password);
+    const { strengthLevel, feedback } = analyzePasswordStrength(generatedPassword.value);
     strengthIndicator.className = 'strength-level';
     strengthIndicator.classList.add(strengthLevel);
     strengthMessage.textContent = feedback;
@@ -169,7 +203,6 @@ function copyToClipboard() {
     generatedPassword.select();
     document.execCommand('copy');
     
-    // Show notification
     const notification = document.createElement('div');
     notification.textContent = 'Password copied!';
     notification.style.cssText = `
@@ -191,6 +224,16 @@ function copyToClipboard() {
         notification.style.animation = 'fadeOut 0.3s ease';
         setTimeout(() => notification.remove(), 300);
     }, 2000);
+}
+
+// Password type toggle
+document.getElementById('randomCharacters').addEventListener('change', togglePasswordType);
+document.getElementById('randomWords').addEventListener('change', togglePasswordType);
+
+function togglePasswordType() {
+    const isWordMode = document.getElementById('randomWords').checked;
+    document.getElementById('lengthOptions').style.display = isWordMode ? 'none' : 'block';
+    document.getElementById('wordOptions').style.display = isWordMode ? 'block' : 'none';
 }
 
 // Create animated particles
@@ -251,6 +294,6 @@ let resizeTimer;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
-        generatedPassword.style.width = 'calc(100% - 88px)'; // Adjust based on button sizes
+        generatedPassword.style.width = 'calc(100% - 88px)';
     }, 250);
 });

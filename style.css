@@ -430,7 +430,7 @@ body {
 }
 
 .password-display button {
-    flex-shrink: 0; /* Add this line */
+    flex-shrink: 0;
     background-color: transparent;
     border: none;
     padding: 0 15px;
@@ -444,16 +444,16 @@ body {
 
 @media (max-width: 480px) {
     .password-display button {
-        padding: 0 12px; /* Reduce horizontal padding */
+        padding: 0 12px;
     }
     
     .password-display input {
-        font-size: 16px; /* Smaller font for mobile */
-        padding: 12px; /* Adjust padding */
+        font-size: 16px;
+        padding: 12px;
     }
     
     .password-display button i {
-        font-size: 16px; /* Smaller icons */
+        font-size: 16px;
     }
 }
 
@@ -465,7 +465,7 @@ body {
     background-color: transparent;
     color: var(--text);
     outline: none;
-    white-space: nowrap; /* Add these lines */
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -477,58 +477,57 @@ body {
     border-radius: 8px;
     overflow: hidden;
     transition: all 0.3s ease;
-    /* Add these lines */
     min-height: 50px;
     align-items: center;
 }
 
-.password-display input {
-    flex: 1;
-    padding: 15px;
-    border: none;
-    font-size: 18px;
-    background-color: transparent;
-    color: var(--text);
-    outline: none;
-    /* Add these lines */
-    min-width: 50%; /* Ensure input doesn't push buttons out */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+/* New Styles */
+.radio-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 8px;
 }
 
-.password-display button {
-    background-color: transparent;
-    border: none;
-    padding: 0 15px;
-    cursor: pointer;
-    color: var(--text-light);
-    transition: all 0.2s ease;
+.radio-group label {
     display: flex;
     align-items: center;
-    justify-content: center;
-    /* Add these lines */
-    flex-shrink: 0;
-    min-width: 44px; /* Minimum touch target size */
-    height: 100%;
+    gap: 8px;
+    cursor: pointer;
+    position: relative;
+    padding-left: 28px;
+    color: var(--text-light);
 }
 
-/* Mobile-specific adjustments */
-@media (max-width: 480px) {
-    .password-display {
-        min-height: 44px;
-    }
-    
-    .password-display input {
-        font-size: 16px;
-        padding: 12px;
-    }
-    
-    .password-display button {
-        padding: 0 12px;
-    }
-    
-    .password-display button i {
-        font-size: 16px;
-    }
+.radio-checkmark {
+    position: absolute;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.radio-group input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.radio-group input:checked ~ .radio-checkmark {
+    border-color: var(--primary);
+    background-color: var(--primary);
+    box-shadow: inset 0 0 0 4px var(--card-bg);
+}
+
+#wordCount {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    width: 100px;
+    background-color: transparent;
+    color: var(--text);
+    font-size: 14px;
 }
